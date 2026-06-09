@@ -1,0 +1,24 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from sqlalchemy import create_engine
+
+engine = create_engine(
+    "postgresql+psycopg2://postgres:Umesh%40123@localhost:5432/business_insights"
+)
+
+df = pd.read_sql("SELECT * FROM global_superstore", engine)
+
+top_customers = (
+    df.groupby("Customer Name")["Sales"]
+      .sum()
+      .sort_values(ascending=False)
+      .head(10)
+)
+
+top_customers.plot(kind="bar")
+
+plt.title("Top 10 Customers by Sales")
+plt.ylabel("Sales")
+plt.tight_layout()
+
+plt.show()
