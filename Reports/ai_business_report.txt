@@ -1,0 +1,17 @@
+
+=========================================
+AI BUSINESS REPORT
+=========================================
+
+Top Region: Central
+Sales: $2,822,302.52
+Profit: $311,403.98
+
+Top Category: Technology
+Category Profit: $663,778.73
+
+Recommendation:
+Focus on expanding the Technology
+category in the Central region.
+
+=========================================

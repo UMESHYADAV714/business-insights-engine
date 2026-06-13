@@ -1,0 +1,157 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#0f172a,#1e293b,#334155);
+    min-height:100vh;
+    padding:25px;
+    color:white;
+}
+
+.dashboard-title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.dashboard-title h1{
+    font-size:42px;
+    font-weight:700;
+}
+
+.dashboard-title p{
+    color:#cbd5e1;
+    margin-top:10px;
+}
+
+.kpi-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-radius:20px;
+    padding:25px;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h3{
+    color:#cbd5e1;
+    font-size:15px;
+    margin-bottom:12px;
+}
+
+.value{
+    font-size:30px;
+    font-weight:bold;
+    color:white;
+}
+
+.chart-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+    margin-top:25px;
+}
+
+.section{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-radius:20px;
+    padding:25px;
+    margin-top:25px;
+}
+
+.section h2{
+    margin-bottom:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:rgba(255,255,255,0.15);
+    color:white;
+    padding:14px;
+    text-align:left;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+tr:hover{
+    background:rgba(255,255,255,0.05);
+}
+
+.summary{
+    line-height:2;
+    font-size:17px;
+}
+
+.summary p{
+    margin-bottom:12px;
+}
+
+canvas{
+    width:100% !important;
+    max-height:350px;
+}
+
+.footer{
+    margin-top:40px;
+    text-align:center;
+    color:#cbd5e1;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 14px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.12);
+    margin-right:10px;
+    margin-bottom:10px;
+}
+
+@media(max-width:992px){
+
+.chart-grid{
+    grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:768px){
+
+.dashboard-title h1{
+    font-size:32px;
+}
+
+.value{
+    font-size:24px;
+}
+
+body{
+    padding:15px;
+}
+
+}
+

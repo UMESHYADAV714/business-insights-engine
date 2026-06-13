@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Business Insights Engine</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="dashboard-title">
+    <h1>AI Business Insights Engine</h1>
+    <p>Enterprise Business Intelligence Dashboard</p>
+</div>
+
+<div class="kpi-grid">
+
+    <div class="card">
+        <h3>Total Sales</h3>
+        <div class="value">${{ sales_total }}</div>
+    </div>
+
+    <div class="card">
+        <h3>Total Profit</h3>
+        <div class="value">${{ total_profit }}</div>
+    </div>
+
+    <div class="card">
+        <h3>Total Orders</h3>
+        <div class="value">{{ total_orders }}</div>
+    </div>
+
+    <div class="card">
+        <h3>Total Customers</h3>
+        <div class="value">{{ total_customers }}</div>
+    </div>
+
+    <div class="card">
+        <h3>Total Quantity</h3>
+        <div class="value">{{ total_quantity }}</div>
+    </div>
+
+    <div class="card">
+        <h3>Top Region</h3>
+        <div class="value">{{ region }}</div>
+    </div>
+
+    <div class="card">
+        <h3>Top Category</h3>
+        <div class="value">{{ category }}</div>
+    </div>
+
+</div>
+
+<div class="chart-grid">
+
+    <div class="section">
+        <h2>Sales by Region</h2>
+        <canvas id="salesChart"></canvas>
+    </div>
+
+    <div class="section">
+        <h2>Profit by Category</h2>
+        <canvas id="profitChart"></canvas>
+    </div>
+
+</div>
+
+<div class="section">
+    <h2>Monthly Sales Trend</h2>
+    <canvas id="monthlyChart"></canvas>
+</div>
+
+<div class="chart-grid">
+
+    <div class="section">
+
+        <h2>Top Customers</h2>
+
+        <table>
+
+            <tr>
+                <th>Customer Name</th>
+                <th>Sales</th>
+            </tr>
+
+            {% for customer in top_customers %}
+
+            <tr>
+                <td>{{ customer['Customer Name'] }}</td>
+                <td>${{ "%.2f"|format(customer['total_sales']) }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    <div class="section">
+
+        <h2>Top Products</h2>
+
+        <table>
+
+            <tr>
+                <th>Product Name</th>
+                <th>Sales</th>
+            </tr>
+
+            {% for product in top_products %}
+
+            <tr>
+                <td>{{ product['Product Name'] }}</td>
+                <td>${{ "%.2f"|format(product['total_sales']) }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</div>
+
+<div class="section">
+
+    <h2>Executive AI Summary</h2>
+
+    <div class="summary">
+
+        <p>• {{ region }} region generated the highest revenue across all markets.</p>
+
+        <p>• {{ category }} category generated the highest profit contribution.</p>
+
+        <p>• The business currently serves {{ total_customers }} unique customers.</p>
+
+        <p>• A total of {{ total_orders }} orders have been processed.</p>
+
+        <p>• Overall quantity sold across all products is {{ total_quantity }} units.</p>
+
+        <p>• Strategic Recommendation: Increase inventory allocation and marketing investment for {{ category }} products in the {{ region }} region.</p>
+
+    </div>
+
+</div>
+
+<div class="section">
+
+    <h2>Dashboard Highlights</h2>
+
+    <span class="badge">PostgreSQL</span>
+    <span class="badge">Python</span>
+    <span class="badge">Flask</span>
+    <span class="badge">SQL Analytics</span>
+    <span class="badge">AI Insights</span>
+    <span class="badge">Business Intelligence</span>
+
+</div>
+
+<div class="footer">
+    AI-Powered Business Insights Engine
+</div>
+
+<script>
+
+new Chart(document.getElementById('salesChart'), {
+
+    type: 'bar',
+
+    data: {
+        labels: {{ regions | tojson }}  ,
+        datasets: [{
+            label: 'Sales',
+            data: {{ sales | tojson }}
+        }]
+    },
+
+    options: {
+        responsive: true
+    }
+
+});
+
+new Chart(document.getElementById('profitChart'), {
+
+    type: 'bar',
+
+    data: {
+        labels: {{ categories | tojson }},
+        datasets: [{
+            label: 'Profit',
+            data: {{ category_profits | tojson }}
+        }]
+    },
+
+    options: {
+        responsive: true
+    }
+
+});
+
+new Chart(document.getElementById('monthlyChart'), {
+
+    type: 'line',
+
+    data: {
+        labels: {{ months | tojson }},
+        datasets: [{
+            label: 'Monthly Sales',
+            data: {{ monthly_sales | tojson }},
+            fill: false,
+            tension: 0.3
+        }]
+    },
+
+    options: {
+        responsive: true
+    }
+
+});
+
+</script>
+
+</body>
+</html>
