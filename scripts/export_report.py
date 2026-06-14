@@ -1,33 +1,31 @@
+import pandas as pd
+from sqlalchemy import create_engine
 from datetime import datetime
 
-report = f"""
-=========================================
- BUSINESS INSIGHTS ENGINE REPORT
-=========================================
+# Database Connection
+engine = create_engine(
+    "postgresql+psycopg2://postgres:Umesh%40123@localhost:5432/business_insights"
+)
 
-Generated On: {datetime.now()}
-
-Key Insights:
------------------------------------------
-
-1. Sales performance analyzed successfully.
-
-2. Regional sales trends identified.
-
-3. Top customers and products evaluated.
-
-4. Monthly and yearly sales trends calculated.
-
-5. Profitability metrics generated.
-
-6. Forecasting completed.
-
-=========================================
-END OF REPORT
-=========================================
+# Query
+query = """
+SELECT
+    "Category" AS category,
+    ROUND(SUM("Sales")::numeric, 2) AS total_sales,
+    ROUND(SUM("Profit")::numeric, 2) AS total_profit
+FROM global_superstore
+GROUP BY "Category"
+ORDER BY total_sales DESC;
 """
 
-with open("Reports/business_report.txt", "w") as file:
-    file.write(report)
+# Load Data
+df = pd.read_sql(query, engine)
 
-print("Report generated successfully!")
+# Create File Name
+date = datetime.now().strftime("%Y-%m-%d")
+file_name = f"reports/business_report_{date}.csv"
+
+# Export Report
+df.to_csv(file_name, index=False)
+
+print(f"Report generated successfully: {file_name}")
